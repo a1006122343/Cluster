@@ -1,0 +1,134 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<!-- 
+  ROS2 package.xml 文件说明
+  ==========================
+  
+  package.xml 是 ROS2 包的元数据描述文件，定义了包的基本信息、依赖关系和其他配置。
+  它类似于其他语言中的 package.json (Node.js) 或 requirements.txt (Python)。
+  
+  格式版本: format="3" 表示使用 package format 3（ROS2 推荐格式）
+-->
+
+<package format="3">
+  <!-- 
+    <name> 标签
+    说明: 定义包的名称，必须在 ROS 系统中唯一
+    要求: 必需字段，只能包含小写字母、数字和下划线
+  -->
+  <name>drone001</name>
+
+  <!-- 
+    <version> 标签
+    说明: 定义包的版本号，遵循语义化版本控制 (major.minor.patch)
+    示例: 1.0.0 表示主版本1，次版本0，补丁版本0
+    要求: 必需字段
+  -->
+  <version>1.0.0</version>
+
+  <!-- 
+    <description> 标签
+    说明: 提供包的简短描述，说明包的功能和用途
+    要求: 必需字段
+  -->
+  <description>drone001无人机节点包，发布无人机状态信息</description>
+
+  <!-- 
+    <maintainer> 标签
+    说明: 定义包的维护者信息
+    属性:
+      - email: 维护者的电子邮件地址
+    要求: 必需字段（至少一个维护者）
+  -->
+  <maintainer email="1006122343@qq.com">Fenghaoheng</maintainer>
+
+  <!-- 
+    <license> 标签
+    说明: 定义包的许可证类型
+    常见许可证:
+      - Apache-2.0: Apache 许可证 2.0
+      - BSD-3-Clause: BSD 3条款许可证
+      - MIT: MIT 许可证
+      - GPL-3.0-only: GNU GPL 3.0
+    要求: 必需字段
+  -->
+  <license>Apache-2.0</license>
+
+  <!-- 
+    <buildtool_depend> 标签
+    说明: 定义构建工具依赖，这些是构建包本身所需的工具
+    与 <depend> 的区别:
+      - buildtool_depend: 构建系统工具（如 cmake, ament_cmake）
+      - depend: 编译和运行时都需要的库和包
+    常见值:
+      - ament_cmake: ROS2 的 CMake 构建系统
+      - ament_python: ROS2 的 Python 构建系统
+      - cmake: 标准 CMake
+  -->
+  <buildtool_depend>ament_cmake</buildtool_depend>
+
+  <!-- 
+    <depend> 标签（隐式包含 build_depend, exec_depend, test_depend）
+    说明: 定义构建、执行和测试的所有依赖
+    等同于同时指定:
+      - <build_depend>
+      - <exec_depend>
+      - <test_depend>
+    使用场景: 当依赖在所有阶段都需要时使用
+    
+    本例中的依赖解释:
+      - rclcpp: ROS2 C++ 客户端库
+        作用: 提供 ROS2 C++ 节点的创建和管理功能
+        必需性: 创建 C++ ROS2 节点必需
+        
+      - drone_msg_pkg: 自定义消息包
+        作用: 提供 DroneState 消息类型
+        必需性: 使用自定义消息必需
+  -->
+  <depend>rclcpp</depend>
+  <depend>drone_msg_pkg</depend>
+
+  <!-- 
+    <test_depend> 标签
+    说明: 定义测试依赖，即运行测试时需要的依赖
+    常见测试框架:
+      - ament_lint_auto: 自动检查工具
+      - ament_lint_common: 常用代码检查工具（cppcheck, cpplint, etc.）
+      - ament_cmake_gtest: Google Test 测试框架
+      - python3-pytest: Python 测试框架
+  -->
+  <test_depend>ament_lint_auto</test_depend>
+  <test_depend>ament_lint_common</test_depend>
+
+  <!-- 
+    <member_of_group> 标签
+    说明: 将包添加到特定的包组中
+    常见包组:
+      - rosidl_interface_packages: 接口定义包组
+        作用: 标记此包包含消息、服务或动作定义
+        影响: 让 ROS2 工具知道此包提供接口定义
+      - ros2_interface_packages: ROS2 接口包组（更通用）
+  -->
+  <!-- 本包不包含接口定义，无需添加到接口包组 -->
+
+  <!-- 
+    <export> 标签
+    说明: 导出包的额外信息，供构建系统和其他工具使用
+    常见用途:
+      - 指定构建类型
+      - 导出插件
+      - 设置环境变量
+  -->
+  <export>
+    <!-- 
+      <build_type> 标签
+      说明: 指定包的构建类型
+      常见值:
+        - ament_cmake: 使用 Ament CMake 构建系统（ROS2 C++ 项目）
+        - ament_python: 使用 Ament Python 构建系统（ROS2 Python 项目）
+        - cmake: 使用标准 CMake
+        - distutils: 使用 Python distutils
+    -->
+    <build_type>ament_cmake</build_type>
+  </export>
+</package>

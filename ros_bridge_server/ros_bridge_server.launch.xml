@@ -1,0 +1,57 @@
+<?xml version="1.0"?>
+<launch>
+  <!-- 
+    ROS2 Web Bridge 启动脚本
+    用于将 ROS2 话题通过 WebSocket 暴露给 Web 应用
+    
+    功能:
+      - 启动 rosbridge_websocket 节点
+      - 配置话题白名单，只允许 /drone_status 话题通过
+      - 设置 WebSocket 端口为 9090
+  -->
+
+  <!-- 启动 rosbridge_websocket 节点 -->
+  <node name="rosbridge_websocket" pkg="rosbridge_server" exec="rosbridge_websocket">
+    <!-- WebSocket 端口 -->
+    <param name="port" value="9090"/>
+    
+    <!-- WebSocket 地址绑定 -->
+    <param name="address" value="0.0.0.0"/>
+    
+    <!-- 启用 SSL (可选) -->
+    <param name="ssl" value="false"/>
+    
+    <!-- 证书文件路径 (仅在启用 SSL 时需要) -->
+    <param name="certfile" value=""/>
+    <param name="keyfile" value=""/>
+    
+    <!-- 认证配置 (可选) -->
+    <param name="authenticate" value="false"/>
+    
+    <!-- 话题白名单配置 -->
+    <!-- 只允许白名单中的话题通过 WebSocket 访问 -->
+    <param name="topic_whitelist" value="['/drone_status']"/>
+    
+    <!-- 服务白名单配置 (可选) -->
+    <!-- <param name="service_whitelist" value="['*']"/> -->
+    
+    <!-- 参数白名单配置 (可选) -->
+    <!-- <param name="param_whitelist" value="['*']"/> -->
+    
+    <!-- 重试间隔 (秒) -->
+    <param name="retry_startup" value="5.0"/>
+    
+    <!-- 日志级别 -->
+    <param name="log_level" value="info"/>
+  </node>
+
+  <!-- 可选: 启动 ROS API 节点以支持更丰富的功能 -->
+  <!-- 
+  <node name="rosapi" pkg="rosapi" exec="rosapi_node">
+    <param name="topic_whitelist" value="['/drone_status']"/>
+    <param name="service_whitelist" value="['*']"/>
+    <param name="param_whitelist" value="['*']"/>
+  </node>
+  -->
+
+</launch>
